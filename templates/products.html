@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h2>
+        Products
+    </h2>
+    <form action="" method="POST">
+        {{ form.csrf_token }}
+        {{ form.product.label }}
+        {{ form.product }}
+        {% if edit_button %}
+            <input type="submit" value="Edit Product">
+        {% else %}
+            {{ form.add_product }}
+        {% endif %}
+    </form>
+
+    <br><br>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">
+                {% for msg in messages %}
+                    <p>{{msg}}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    {% if products %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Products</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td> {{ product.name }} <a class="editLink" href="{{ url_for('edit_product', product_id=product.id) }}">Edit</a><a class="editLink" href="{{ url_for('delete_product', product_id=product.id) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
