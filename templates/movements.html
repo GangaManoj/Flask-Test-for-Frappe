@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h2>
+        Product Movements
+    </h2>
+    <form action="{{ url_for('movements') }}" method="POST">
+        {{ form.csrf_token }}
+        {{ form.product.label }}
+        {{ form.product }}
+        {{ form.from_location.label }}
+        {{ form.from_location }}
+        {{ form.to_location.label }}
+        {{ form.to_location }}
+        {{ form.quantity.label }}
+        {{ form.quantity }}
+        {{ form.add_movement }}
+    </form>
+
+    <br><br>
+
+    <table>
+        <thead>
+            <tr id="tableName">
+                <th colspan="4">Product Movements</th>
+            </tr>
+            <tr>
+                <th>Product</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movement in movements %}
+                <tr>
+                    <td> {{ movement.product }} </td>
+                    <td> {{ movement.from_location }} </td>
+                    <td> {{ movement.to_location }} </td>
+                    <td> {{ movement.quantity }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h2>
+        Balance
+    </h2>
+    <br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Location</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for b in balance %}
+            <tr>
+                <td>{{b.product}}</td>
+                <td>{{b.location}}</td>
+                <td>{{b.balance}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

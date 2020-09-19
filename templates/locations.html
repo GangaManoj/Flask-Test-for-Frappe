@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h2>
+        Locations
+    </h2>
+    <form action="{{ url_for('locations') }}" method="POST">
+        {{ form.csrf_token }}
+        {{ form.location.label }}
+        {{ form.location }}
+        {{ form.add_location }}        
+    </form>
+    <br><br>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">
+                {% for msg in messages %}
+                    <p>{{msg}}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Locations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for location in locations %}
+                <tr>
+                    <td> {{ location.name }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
