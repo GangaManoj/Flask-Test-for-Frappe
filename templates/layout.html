@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>
+            Inventory Manager
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        
+    </head>
+    <body>
+        <header>
+            <h1>Inventory Manager</h1>
+        </header>
+        
+        <aside>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('products') }}">Products</a></li>
+                    <li><a href="{{ url_for('locations') }}">Locations</a></li>
+                    <li><a href="{{ url_for('movements') }}">Product Movements</a></li>
+                    <li><a href="{{ url_for('balance') }}">Balance</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="form">
+            {% block main %} {% endblock %}
+        </section>
+    </body>
+</html>
