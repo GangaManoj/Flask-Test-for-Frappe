@@ -12,8 +12,8 @@ class LocationForm(FlaskForm):
 
 class MovementForm(FlaskForm):
     product = SelectField("Product", choices = [])
-    from_location = SelectField("From Location", choices = [])
-    to_location = SelectField("To Location", choices = [])
+    from_location = SelectField("From Location", coerce=int)
+    to_location = SelectField("To Location", coerce=int)
     quantity = StringField("Quantity", validators=[DataRequired()])
     add_movement = SubmitField("Add Movement")
 

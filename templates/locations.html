@@ -4,11 +4,15 @@
     <h2>
         Locations
     </h2>
-    <form action="{{ url_for('locations') }}" method="POST">
+    <form action="" method="POST">
         {{ form.csrf_token }}
         {{ form.location.label }}
         {{ form.location }}
-        {{ form.add_location }}        
+        {% if edit_button %}
+            <input type="submit" value="Edit Location">
+        {% else %}
+            {{ form.add_location }}  
+        {% endif %}              
     </form>
     <br><br>
 
@@ -20,21 +24,25 @@
                 {% endfor %}
             </div>
         {% endif %}
-    {% endwith %}
+    {% endwith %} 
     
-    <table>
-        <thead>
-            <tr>
-                <th>Locations</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for location in locations %}
+    {% if locations %}
+        <table>
+            <thead>
                 <tr>
-                    <td> {{ location.name }} </td>
+                    <th>Locations</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for location in locations %}
+                    {% if location.name != "None" %}
+                    <tr>
+                        <td> {{ location.name }} <a class="editLink" href="{{ url_for('edit_location', location_id=location.id) }}">Edit</a><a class="editLink" href="{{ url_for('delete_location', location_id=location.id) }}">Delete</a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 
 {% endblock %}
