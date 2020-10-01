@@ -1,25 +1,27 @@
 {% extends "layout.html" %}
 
 {% block main %}
-    <h2>
-        Product Movements
-    </h2>
-    <form action="" method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.product.label }}
-        {{ form.product }}
-        {{ form.from_location.label }}
-        {{ form.from_location }}
-        {{ form.to_location.label }}
-        {{ form.to_location }}
-        {{ form.quantity.label }}
-        {{ form.quantity }}
-        {% if edit_button %}
-            <input type="submit" value="Edit Movement">
-        {% else %}
-            {{ form.add_movement }}
-        {% endif %}
-    </form>
+    <div class="align">
+        <h2>
+            Product Movements
+        </h2>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.product.label }}
+            {{ form.product }}
+            {{ form.from_location.label }}
+            {{ form.from_location }}
+            {{ form.to_location.label }}
+            {{ form.to_location }}
+            {{ form.quantity.label }}
+            {{ form.quantity }}
+            {% if edit_button %}
+                <input type="submit" value="Edit Movement">
+            {% else %}
+                {{ form.add_movement }}
+            {% endif %}
+        </form>
+    </div>
 
     <br><br>
     {% with messages = get_flashed_messages() %}
@@ -51,7 +53,11 @@
                         <td> {{ movement.product }} </td>
                         <td> {{ movement.from_location }} </td>
                         <td> {{ movement.to_location }} </td>
-                        <td> {{ movement.quantity }} <a class="editLink" href="{{ url_for('edit_movement', movement_id=movement.id) }}">Edit</a><a class="editLink" href="{{ url_for('delete_movement', movement_id=movement.id) }}">Delete</a></td>
+                        <td> 
+                            {{ movement.quantity }} 
+                            <a class="edit-delete" href="{{ url_for('edit_movement', movement_id=movement.id) }}">Edit</a>
+                            <a class="edit-delete open-modal" href="{{ url_for('delete_movement', movement_id=movement.id) }}">Delete</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -41,16 +41,6 @@ def products():
 
 @app.route('/locations', methods=['GET','POST'])
 def locations():
-    # flag = True
-    # locations = Location.query.all()
-    # for location in locations:
-    #     if location.name == "None":
-    #         flag = False
-    # if flag:
-    #     l = Location(name = "None")
-    #     db.session.add(l)
-    #     db.session.commit()
-
     form = LocationForm()
     if form.validate_on_submit():
         l = Location(name = form.location.data)
@@ -67,6 +57,7 @@ def movements():
     form = MovementForm()
     form.product.choices = [(product.id,product.name) for product in Product.query.all()]
 
+    # Adding the none option
     flag = True
     locations = Location.query.all()
     for location in locations:
@@ -83,7 +74,7 @@ def movements():
         product = Product.query.filter_by(id=form.product.data).first()
         from_location = Location.query.filter_by(id=form.from_location.data).first()
         to_location = Location.query.filter_by(id=form.to_location.data).first()
-        if int((Balance.query.filter_by(product = product.name).filter_by(location = from_location.name).first()).balance) < int(form.quantity.data) and from_location.name != "":
+        if int((Balance.query.filter_by(product = product.name).filter_by(location = from_location.name).first()).balance) < int(form.quantity.data) and from_location.name != "None":
            flash("Invalid movement. Quantity of the product is insufficient.")
         else: 
             m = Movement(product_id = product.id, product = product.name, from_location_id = from_location.id, from_location = from_location.name, to_location_id = to_location.id, to_location = to_location.name, quantity = form.quantity.data)
@@ -141,13 +132,11 @@ def edit_location(location_id):
 def edit_movement(movement_id):
     movement = Movement.query.get_or_404(movement_id)
     form = MovementForm()
-    # if form.validate_on_submit():
     if request.method == 'POST':
-        # request.get['name']
         product = Product.query.filter_by(id=form.product.data).first()
         from_location = Location.query.filter_by(id=form.from_location.data).first()
         to_location = Location.query.filter_by(id=form.to_location.data).first()
-        if int((Balance.query.filter_by(product = product.name).filter_by(location = from_location.name).first()).balance) < int(form.quantity.data) and from_location.name != "":
+        if int((Balance.query.filter_by(product = product.name).filter_by(location = from_location.name).first()).balance) < int(form.quantity.data) and from_location.name != "None":
            flash("Invalid movement. Quantity of the product is insufficient.")
         else: 
             movement.product_id = product.id
