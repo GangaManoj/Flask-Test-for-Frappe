@@ -35,6 +35,7 @@ def products():
         db.session.commit()
         products = Product.query.all()
         flash("A new product has been added!")
+        form.product.data = ""  
         return render_template('products.html', products=products, form=form)
     products = Product.query.all()
     return render_template('products.html', products=products, form=form)
@@ -48,6 +49,7 @@ def locations():
         db.session.commit()
         locations = Location.query.all()
         flash("A new location has been added!")
+        form.location.data = ""   
         return render_template('locations.html', locations=locations, form=form)
     locations = Location.query.all()
     return render_template('locations.html', locations=locations, form=form)
@@ -84,6 +86,12 @@ def movements():
         movements = Movement.query.all()
         products = Product.query.all()
         locations = Location.query.all()
+
+        #resetting form fields
+        form.product.data = form.product.choices
+        form.from_location.data = form.from_location.choices
+        form.to_location.data = form.to_location.choices
+        form.quantity.data = ""
         return render_template('movements.html', movements=movements, products=products, locations=locations, form=form)
     
     movements = Movement.query.all()
