@@ -3,6 +3,10 @@ Inventory manager built using Flask and SQLAlchemy.
 
 # Screenshots
 
+## Balance
+
+![Balance](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Balance/Balance.png)
+
 ## Products
 
 ### View Products
@@ -34,4 +38,25 @@ Inventory manager built using Flask and SQLAlchemy.
 ![Delete Location Modal](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Locations/Delete%20Location%20Modal.png)
 
 ![Delete Location](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Locations/Delete%20Location.png)
+
+## Product Movements
+
+### View Movements
+![View Movements](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Movements/View%20Movements.png)
+
+### Add Movement
+![Add Movement](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Movements/Add%20Movement.png)
+
+### Invalid Movement
+![Invalid Movement](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Movements/Invalid%20Movement.png)
+
+### Edit Movement
+![Edit Movement](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Movements/Edit%20Movement.png)
+
+### Delete Movement
+![Delete Movement Modal](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Movements/Delete%20Movement%20Modal.png)
+
+![Delete Movement](https://github.com/GangaManoj/Flask-Test-for-Frappe/blob/master/Flask%20test%20images/Movements/Delete%20Movement.png)
+
+
 
