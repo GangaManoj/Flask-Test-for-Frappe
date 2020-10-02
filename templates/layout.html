@@ -23,7 +23,19 @@
         </aside>
 
         <section>
-            {% block main %} {% endblock %}
+            {% block form %} {% endblock form %}
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash">
+                        {% for msg in messages %}
+                            <p>{{msg}}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %} 
+
+            {% block table %} {% endblock table %}
         </section>
 
         <div id="modal">
