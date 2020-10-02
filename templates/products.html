@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block main %}
+{% block form %}
     <div class = "align">
         <h2>
             Products
@@ -19,16 +19,9 @@
 
     <br><br>
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="flash">
-                {% for msg in messages %}
-                    <p>{{msg}}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-    
+{% endblock form %}
+
+{% block table %}
     {% if products %}
         <table>
             <thead>
