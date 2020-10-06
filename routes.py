@@ -3,28 +3,29 @@ from inventory import app, db
 from forms import *
 from models import *
 
+def find_balance(product, location):
+    qty_added = db.session.query(db.func.sum(Movement.quantity)).filter(Movement.product==product).filter(Movement.to_location==location).scalar()
+    qty_subtracted = db.session.query(db.func.sum(Movement.quantity)).filter(Movement.product==product).filter(Movement.from_location==location).scalar()  
+    if qty_added is None:
+        qty_added = 0
+    if qty_subtracted is None:
+        qty_subtracted = 0
+    balance = qty_added - qty_subtracted
+    return balance
+
 @app.route('/')
 @app.route('/balance', methods=['GET','POST'])
 def balance():
-    db.session.query(Balance).delete()
-    db.session.commit()
     products = Product.query.all()
     locations = Location.query.all()
+    balance_table = []
     for product in products:
         for location in locations:
-            qty_added = db.session.query(db.func.sum(Movement.quantity)).filter(Movement.product==product.name).filter(Movement.to_location==location.name).scalar()
-            qty_subtracted = db.session.query(db.func.sum(Movement.quantity)).filter(Movement.product==product.name).filter(Movement.from_location==location.name).scalar()  
-            if qty_added is None:
-                qty_added = 0
-            if qty_subtracted is None:
-                qty_subtracted = 0
-            balance = qty_added - qty_subtracted
-            b = Balance(product=product.name, location=location.name, balance=balance)
-            db.session.add(b)
-            db.session.commit()
+            if location.name != "None":
+                balance = find_balance(product.name, location.name)
+                balance_table.append([product.name, location.name, balance])
 
-    balance = Balance.query.all()
-    return render_template('balance.html', balance=balance)
+    return render_template('balance.html', balance = balance_table)        
 
 @app.route('/products', methods=['GET','POST'])
 def products():
@@ -76,7 +77,7 @@ def movements():
         product = Product.query.filter_by(id=form.product.data).first()
         from_location = Location.query.filter_by(id=form.from_location.data).first()
         to_location = Location.query.filter_by(id=form.to_location.data).first()
-        if int((Balance.query.filter_by(product = product.name).filter_by(location = from_location.name).first()).balance) < int(form.quantity.data) and from_location.name != "None":
+        if from_location.name != "None" and find_balance(product.name, from_location.name) < int(form.quantity.data):
            flash("Invalid movement. Quantity of the product is insufficient.")
         else: 
             m = Movement(product_id = product.id, product = product.name, from_location_id = from_location.id, from_location = from_location.name, to_location_id = to_location.id, to_location = to_location.name, quantity = form.quantity.data)
@@ -144,7 +145,7 @@ def edit_movement(movement_id):
         product = Product.query.filter_by(id=form.product.data).first()
         from_location = Location.query.filter_by(id=form.from_location.data).first()
         to_location = Location.query.filter_by(id=form.to_location.data).first()
-        if int((Balance.query.filter_by(product = product.name).filter_by(location = from_location.name).first()).balance) < int(form.quantity.data) and from_location.name != "None":
+        if from_location.name != "None" and find_balance(product.name, from_location.name) < int(form.quantity.data):
            flash("Invalid movement. Quantity of the product is insufficient.")
         else: 
             movement.product_id = product.id
