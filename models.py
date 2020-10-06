@@ -21,14 +21,4 @@ class Movement(db.Model):
     to_location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     to_location = db.Column(db.String(50))
     quantity = db.Column(db.Integer, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-class Balance(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    product = db.Column(db.String(50), nullable=False)
-    location = db.Column(db.String(50), nullable=False)
-    balance = db.Column(db.Integer)
-
-
-
-   
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)   

@@ -17,13 +17,11 @@
             </thead>
             <tbody>
                 {% for b in balance %}
-                    {% if b.location != "None" %}
-                        <tr>
-                            <td>{{b.product}}</td>
-                            <td>{{b.location}}</td>
-                            <td>{{b.balance}}</td>
-                        </tr>
-                    {% endif %}
+                    <tr>
+                        <td> {{ b[0] }}</td>
+                        <td> {{ b[1] }}</td>
+                        <td> {{ b[2] }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
