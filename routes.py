@@ -24,7 +24,6 @@ def balance():
             if location.name != "None":
                 balance = find_balance(product.name, location.name)
                 balance_table.append([product.name, location.name, balance])
-
     return render_template('balance.html', balance = balance_table)        
 
 @app.route('/products', methods=['GET','POST'])
